@@ -146,3 +146,15 @@ buffer.AudioBytes = dwChunkSize;  //size of the audio buffer in bytes
 buffer.pAudioData = pDataBuffer;  //buffer containing audio data
 buffer.Flags = XAUDIO2_END_OF_STREAM; // tell the source voice not to expect any data after this buffer
 
+//play a sound
+
+
+IXAudio2SourceVoice* pSourceVoice;
+if( FAILED(hr = pXAudio2->CreateSourceVoice( &pSourceVoice, (WAVEFORMATEX*)&wfx ) ) ) return hr;
+
+if( FAILED(hr = pSourceVoice->SubmitSourceBuffer( &buffer ) ) )
+    return hr;
+
+if ( FAILED(hr = pSourceVoice->Start( 0 ) ) )
+    return hr;
+
